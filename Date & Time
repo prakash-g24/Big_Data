@@ -1,0 +1,27 @@
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+# Create SparkSession
+spark = SparkSession.builder \
+            .appName('SparkByExamples.com') \
+            .getOrCreate()
+data=[["1","2020-02-01"],["2","2019-03-01"],["3","2021-03-01"]]
+df=spark.createDataFrame(data,["id","input"])
+df.show()
+
+'''current'''
+
+df.select(current_date().alias("current_date")
+  ).show(1)
+
+'''date_format()'''
+
+
+df.select(col("input"),
+    date_format(col("input"), "MM-dd-yyyy").alias("date_format")
+  ).show()
+
+'''datediff()'''
+
+df.select(col("input"),
+    datediff(current_date(),col("input")).alias("datediff")
+  ).show()
